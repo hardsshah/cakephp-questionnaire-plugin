@@ -8,5 +8,12 @@ class SurveyAnswer extends SurveyAppModel{
 			'foreignKey' => 'survey_question_id'
 		)
 	);
+	var $hasMany = array(
+		'SurveySurvey' => array(
+			'className' => 'Survey.SurveySurvey',
+			'dependent' => true
+		)
+	);
+
 }
 ?>
