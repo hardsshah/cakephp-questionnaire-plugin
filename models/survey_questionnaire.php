@@ -31,7 +31,7 @@ class SurveyQuestionnaire extends SurveyAppModel{
 		*/
 		$surveyQuestions = array();
 		foreach($surveyQuestionnaire['SurveySection'] as $surveySection){
-			$surveyQuestions[] = $this->SurveyQuestion->find('all',
+			$surveyQuestions[$surveySection['id']] = $this->SurveyQuestion->find('all',
 				array(
 					'conditions' => array(
 						'SurveyQuestion.survey_section_id' => $surveySection['id']),
