@@ -11,7 +11,7 @@ class SurveyQuestionnairesController extends SurveyAppController{
 	function view($id = null) {
 		if($this->SurveyQuestionnaire->exists()) {
 			$surveyQuestionnaire = $this->SurveyQuestionnaire->getQuestionnaire($id);
-			$surveyQuestionTypes = $this->SurveyQuestions->SurveyQuestion->SurveyQuestionTypes->find("all");
+			$surveyQuestionTypes = $this->SurveyQuestions->SurveyQuestion->SurveyQuestionTypes->find("list");
 			$this->set(compact('surveyQuestionnaire', 'surveyQuestionTypes'));
 		} else {
 			$this->Session->setFlash(__('Invalid Questionnaire.', true), 'messages/error');
