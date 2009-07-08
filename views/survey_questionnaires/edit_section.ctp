@@ -14,12 +14,26 @@
 			<legend>Edit all Questions associated with this Section</legend>
 			<?php $i = 0; ?>
 			<?php foreach ($this->data['SurveyQuestion'] as $question) { ?>
+				<?php echo $form->input("SurveyQuestion." . $i . ".id"); ?>
 				<?php echo $form->input("SurveyQuestion." . $i . ".title", array('label' => 'Question Title', 'type' => 'text')); ?>
 				<?php echo $form->input("SurveyQuestion." . $i . ".survey_question_type_id", array('label' => 'Type of question')); ?>
 				<?php echo $form->input("SurveyQuestion." . $i . ".required", array('label' => 'Is This Question Required?', 'type' => 'checkbox')); ?>
 				<?php echo $form->input("SurveyQuestion." . $i . ".number_of_characters", array('label' => 'How Many Characters Are Allowed For This Field?', 'type' => 'text')); ?>
-				<?php echo $form->input("SurveyQuestion." . $i . ".help", array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
+				<?php echo $form->input("SurveyQuestion." . $i++ . ".help", array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
 			<?php } ?>
+			<p>Should they be necessary, we have included some extra question fields.</p>
+			<?php echo $form->input("SurveyQuestion." . $i . ".id"); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".title", array('label' => 'Question Title', 'type' => 'text')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".survey_question_type_id", array('label' => 'Type of question')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".required", array('label' => 'Is This Question Required?', 'type' => 'checkbox')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".number_of_characters", array('label' => 'How Many Characters Are Allowed For This Field?', 'type' => 'text')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i++ . ".help", array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".id"); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".title", array('label' => 'Question Title', 'type' => 'text')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".survey_question_type_id", array('label' => 'Type of question')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".required", array('label' => 'Is This Question Required?', 'type' => 'checkbox')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i . ".number_of_characters", array('label' => 'How Many Characters Are Allowed For This Field?', 'type' => 'text')); ?>
+			<?php echo $form->input("SurveyQuestion." . $i++ . ".help", array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
 		</fieldset>
 	<?php echo $form->end(); ?>
 </div>

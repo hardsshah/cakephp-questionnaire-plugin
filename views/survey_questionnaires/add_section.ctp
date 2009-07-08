@@ -29,6 +29,5 @@
 			<?php echo $form->input('SurveyQuestion.2.number_of_characters', array('label' => 'How Many Characters Are Allowed For This Field?', 'type' => 'text')); ?>
 			<?php echo $form->input('SurveyQuestion.2.help', array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
 		</fieldset>
-
 	<?php echo $form->end(); ?>
 </div>

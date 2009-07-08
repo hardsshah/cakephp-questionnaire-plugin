@@ -13,23 +13,21 @@
 				$i = 1;
 				foreach ($currentQuestions as $question) {
 					echo "<div class=\"question\">";
-						echo "<h4>Question #" . $i . " - " . $question['Question']['title'] . "</h4>";
-						echo "Question Type: " . $surveyQuestionTypes[$question['SurveyQuestion']['survey_question_type_id']] . "<br />";
-						echo "Character Limit: " . echo $question['SurveyQuestion']['number_of_characters'] . "<br />";
-						echo "Is this required? : ";
-							echo ($question['SurveyQuestion']['survey_question_type_id'] == 1) ? "Yes" : "No";
-							echo "<br />"
-						echo "Help Text:" . echo $question['SurveyQuestion']['help'];
-						if (!empty($question['Answers'])) {
-							$j = 1;
-							foreach ($question['Answers'] as $answer){
-								echo $j . ". " $answer['title'] . "<br />";
-								if ($answer['default'] == 1){
-									echo "<strong>This is the default answer.</strong>";
-								}
-								$j++;
+						echo "<strong>" . $i . ".</strong> " . $question['Question']['title'];
+						$options = array('type' => $surveyQuestionTypes[$question['survey_question_type_id']]['title']);
+						if ($surveyQuestionTypes[$question['survey_question_type_id']]['title'] == 'select') {
+							//build Answer Array, grrr
+							$answers = array();
+							foreach($question['SurveyAnswer'] as $answer){
+								$answers['title'] => $answer['title'];
 							}
+							$options['options'] = $answers;
+							$options['type'] = "radio";
+							$options['attributes'] = "<br />";
 						}
+						echo $form->input("SurveySurvey." . $i . ".survey_question_id", array('type' => 'hidden'));
+						echo $form->input("SurveySurvey." . $i . ".title", $options) . "<br />";
+						echo "Help Text:" . echo $question['SurveyQuestion']['help'] . "<br />";
 					echo "</div>";
 					$i++;
 				}
