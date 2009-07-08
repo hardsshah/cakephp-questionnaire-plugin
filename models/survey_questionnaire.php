@@ -6,10 +6,6 @@ class SurveyQuestionnaire extends SurveyAppModel{
 		'SurveySection' => array(
 			'className' => 'Survey.SurveySection',
 			'dependent' => true
-		),
-		'SurveyQuestion' => array(
-			'className' => 'Survey.SurveyQuestion',
-			'dependent' => true
 		)
 	);
 	
@@ -20,6 +16,7 @@ class SurveyQuestionnaire extends SurveyAppModel{
 		* Find all Questions in one go
 		* May do this if we decide that Selects 
 		* are not cheaper than PHP manipulation, but it should be :)
+		* Should edit because questions no longer belong to questionnaires
 		* $surveyQuestions = $this->SurveyQuestion->find('all',
 			array(
 				'conditions' => array(
