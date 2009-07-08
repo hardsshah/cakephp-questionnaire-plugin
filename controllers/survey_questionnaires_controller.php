@@ -31,21 +31,6 @@ class SurveyQuestionnairesController extends SurveyAppController{
 		}
 	}
 
-	function add_section($id = NULL) {
-		if (!empty($this->data)) {
-			if($this->SurveyQuestionnaire->exists()) {
-				$this->data['SurveySection']['survey_questionnaire_id'] = $questionnaireID;
-				$this->SurveyQuestionnaire->SurveySection->create();
-				if ($this->SurveyQuestionnaire->SurveySection->saveAll($this->data, array('validate'=>'first'))) {
-					$this->Session->setFlash(__('The Section has been added', true), 'messages/success');
-					$this->redirect(array('action' => 'index'), 200, true);
-				} else {
-					$this->Session->setFlash(__('The Section could not be added. Please, try again.', true), 'messages/error');
-				}
-			}
-		}
-	}
-
 	function edit($id = null) {
 		if (empty($this->data)) {
 			if ($this->SurveyQuestionnaire->exists() == false){
@@ -74,6 +59,42 @@ class SurveyQuestionnairesController extends SurveyAppController{
 			$this->redirect(array('action'=>'index'), 200, true);
 		} else {
 			$this->Session->setFlash(__('Questionnaire could not be deleted. Please try again', true), 'messages/error');
+		}
+	}
+
+	function add_section($id = NULL) {
+		if (!empty($this->data)) {
+			if($this->SurveyQuestionnaire->exists()) {
+				$this->data['SurveySection']['survey_questionnaire_id'] = $questionnaireID;
+				$this->SurveyQuestionnaire->SurveySection->create();
+				if ($this->SurveyQuestionnaire->SurveySection->saveAll($this->data, array('validate'=>'first'))) {
+					$this->Session->setFlash(__('The Section has been added', true), 'messages/success');
+					$this->redirect(array('action' => 'index'), 200, true);
+				} else {
+					$this->Session->setFlash(__('The Section could not be added. Please, try again.', true), 'messages/error');
+				}
+			}
+		}
+		$survey_question_types = $this->SurveyQuestions->SurveyQuestion->SurveyQuestionTypes->find("list");
+		$this->set(compact('survey_question_types'));
+	}
+	
+	function edit_section($sectionID = null) {
+		if (empty($this->data)) {
+			$this->SurveyQuestionnaire->SurveySection->id = $sectionID;
+			if ($this->SurveyQuestionnaire->SurveySection->exists() == false){
+				$this->Session->setFlash(__('Invalid Section', true), 'messages/error');
+				$this->redirect(array('action'=>'index'), 404, true);
+			} else {
+				$this->data = $this->SurveyQuestionnaire->SurveySection->find('first', array('contain' => array('SurveyQuestion')));
+			}
+		} else {
+			if ($this->SurveyQuestionnaire->SurveySection->saveAll($this->data)) {
+				$this->Session->setFlash(__("The Section and it's associated questions have been saved", true), 'messages/success');
+				$this->redirect(array('action'=>'index'), 200, true);
+			} else {
+				$this->Session->setFlash(__("The Section and it's associated questions could not be saved. Please, try again.", true));
+			}
 		}
 	}
 }
