@@ -14,8 +14,8 @@ class QuestionnaireQuestion extends QuestionnaireAppModel{
 			'className' => 'Questionnaire.QuestionnaireSection',
 			'foreignKey' => 'questionnaire_section_id'
 		),
-		'QuestionnaireType' => array(
-			'className' => 'Questionnaire.QuestionnaireType',
+		'QuestionType' => array(
+			'className' => 'Questionnaire.QuestionnaireQuestionType',
 			'foreignKey' => 'questionnaire_type_id'
 		)
 	);

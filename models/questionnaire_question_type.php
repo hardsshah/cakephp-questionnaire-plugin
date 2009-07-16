@@ -2,6 +2,11 @@
 class QuestionnaireQuestionType extends QuestionnaireAppModel{
 	var $name = 'QuestionnaireQuestionType';
 	var $useTable = false;
+	var $primaryKey = 'id';
+	var $_schema = array(
+		'id' => array('type' => 'string', 'length' => 11),
+		'title' => array('type' => 'string', 'length' => 255)
+	);
 
 	var $hasMany = array(
 		'QuestionnaireQuestion' => array(
@@ -39,14 +44,14 @@ class QuestionnaireQuestionType extends QuestionnaireAppModel{
 			'2' => 'checkbox',
 			'3' => 'textarea',
 			'4' => 'text'
-		)
+		);
 		// Since we aren't using a table and merely a php array
 		switch ($type) {
 			case "first":
 				$recordID = $this->id - 1;
 				return $allQuestionnaireQuestionTypes[$recordID];
 			case "count":
-				return = $countQuestionnaireQuestionTypes;
+				return $countQuestionnaireQuestionTypes;
 			case "all":
 				return $allQuestionnaireQuestionTypes;
 			case "list":
