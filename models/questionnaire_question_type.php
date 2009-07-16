@@ -1,11 +1,11 @@
 <?php
-class SurveyQuestionType extends SurveyAppModel{
-	var $name = 'SurveyQuestionType';
+class QuestionnaireQuestionType extends QuestionnaireAppModel{
+	var $name = 'QuestionnaireQuestionType';
 	var $useTable = false;
 
 	var $hasMany = array(
-		'SurveyQuestion' => array(
-			'className' => 'Survey.SurveyQuestion',
+		'QuestionnaireQuestion' => array(
+			'className' => 'Questionnaire.QuestionnaireQuestion',
 			'dependent' => true
 		)
 	);
@@ -13,12 +13,12 @@ class SurveyQuestionType extends SurveyAppModel{
 	function find($type = "all", $options = array()){
 		// "first" array is a lookup on the array below
 		// "count" is simply a count of the above array. Hardcoded to 4
-		$countSurveyQuestionTypes = 4;
+		$countQuestionnaireQuestionTypes = 4;
 		//Construct the "all" array
-		$allSurveyQuestionTypes = array(
+		$allQuestionnaireQuestionTypes = array(
 			'0' => array(
 				'id' => '1',
-				'title' => 'multiple'
+				'title' => 'select'
 			),
 			'1' => array(
 				'id' => '2',
@@ -34,8 +34,8 @@ class SurveyQuestionType extends SurveyAppModel{
 			)
 		);
 		// Construct the "list" array
-		$listSurveyQuestionTypes = array(
-			'1' => 'multiple',
+		$listQuestionnaireQuestionTypes = array(
+			'1' => 'select',
 			'2' => 'checkbox',
 			'3' => 'textarea',
 			'4' => 'text'
@@ -44,17 +44,17 @@ class SurveyQuestionType extends SurveyAppModel{
 		switch ($type) {
 			case "first":
 				$recordID = $this->id - 1;
-				return $allSurveyQuestionTypes[$recordID];
+				return $allQuestionnaireQuestionTypes[$recordID];
 			case "count":
-				return = $countSurveyQuestionTypes;
+				return = $countQuestionnaireQuestionTypes;
 			case "all":
-				return $allSurveyQuestionTypes;
+				return $allQuestionnaireQuestionTypes;
 			case "list":
-				return $listSurveyQuestionTypes;
+				return $listQuestionnaireQuestionTypes;
 			default:
-				return $allSurveyQuestionTypes;
+				return $allQuestionnaireQuestionTypes;
 		}
-		return $allSurveyQuestionTypes;
+		return $allQuestionnaireQuestionTypes;
 	}
 }
 ?>

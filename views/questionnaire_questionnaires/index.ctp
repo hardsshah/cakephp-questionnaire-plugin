@@ -1,4 +1,4 @@
-<div class="survey_questionnaire index">
+<div class="questionnaire_questionnaire index">
 	<h2><?php __('Questionnaires');?></h2>
 	<p><?php echo $paginator->counter(array('format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true))); ?></p>
 	<table cellpadding="0" cellspacing="0">
@@ -9,17 +9,17 @@
 		</tr>
 		<?php
 		$i = 0;
-		foreach ($surveyQuestionnaires as $surveyQuestionnaire):
+		foreach ($questionnaireQuestionnaires as $questionnaireQuestionnaire):
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $surveyQuestionnaire['SurveyQuestionnaire']['id']; ?></td>
-			<td><?php echo $surveyQuestionnaire['SurveyQuestionnaire']['title']; ?></td>
+			<td><?php echo $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['id']; ?></td>
+			<td><?php echo $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['title']; ?></td>
 			<td class="actions">
-				<?php echo $html->link(__('View', true), array('action'=>'view', $surveyQuestionnaire['SurveyQuestionnaire']['id'])); ?>
+				<?php echo $html->link(__('View', true), array('action'=>'view', $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['id'])); ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

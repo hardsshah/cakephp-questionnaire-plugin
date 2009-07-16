@@ -17,28 +17,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-# Dump of table survey_answers
+# Dump of table questionnaire_answers
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `survey_answers`;
+DROP TABLE IF EXISTS `questionnaire_answers`;
 
-CREATE TABLE `survey_answers` (
+CREATE TABLE `questionnaire_answers` (
   `id` int(11) NOT NULL auto_increment,
-  `survey_question_id` int(11) default NULL,
+  `questionnaire_question_id` int(11) default NULL,
   `title` varchar(100) default NULL,
   `default` tinyint(1) default NULL,
   PRIMARY KEY  (`id`),
-  KEY `survey_question_id` (`survey_question_id`)
+  KEY `questionnaire_question_id` (`questionnaire_question_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
 
-# Dump of table survey_questionnaires
+# Dump of table questionnaire_questionnaires
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `survey_questionnaires`;
+DROP TABLE IF EXISTS `questionnaire_questionnaires`;
 
-CREATE TABLE `survey_questionnaires` (
+CREATE TABLE `questionnaire_questionnaires` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(40) collate utf8_unicode_ci NOT NULL default '',
   `welcome_message` text collate utf8_unicode_ci,
@@ -48,16 +48,16 @@ CREATE TABLE `survey_questionnaires` (
 
 
 
-# Dump of table survey_questions
+# Dump of table questionnaire_questions
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `survey_questions`;
+DROP TABLE IF EXISTS `questionnaire_questions`;
 
-CREATE TABLE `survey_questions` (
+CREATE TABLE `questionnaire_questions` (
   `id` int(11) NOT NULL auto_increment,
-  `survey_section_id` int(11) default NULL,
-  `survey_question_type_id` int(11) default NULL,
-  `survey_questionnaire_id` int(11) default NULL,
+  `questionnaire_section_id` int(11) default NULL,
+  `questionnaire_question_type_id` int(11) default NULL,
+  `questionnaire_questionnaire_id` int(11) default NULL,
   `title` varchar(100) default NULL,
   `textbox_size` varchar(10) default NULL,
   `textfield_size` varchar(10) default NULL,
@@ -65,37 +65,37 @@ CREATE TABLE `survey_questions` (
   `help` varchar(255) default NULL,
   `number_of_characters` int(11) default NULL,
   PRIMARY KEY  (`id`),
-  KEY `section_id` (`survey_section_id`),
-  KEY `type_id` (`survey_question_type_id`),
-  KEY `survey_questionnaire_id` (`survey_questionnaire_id`)
+  KEY `section_id` (`questionnaire_section_id`),
+  KEY `type_id` (`questionnaire_question_type_id`),
+  KEY `questionnaire_questionnaire_id` (`questionnaire_questionnaire_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
 
-# Dump of table survey_sections
+# Dump of table questionnaire_sections
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `survey_sections`;
+DROP TABLE IF EXISTS `questionnaire_sections`;
 
-CREATE TABLE `survey_sections` (
+CREATE TABLE `questionnaire_sections` (
   `id` int(11) NOT NULL auto_increment,
-  `survey_questionnaire_id` int(11) default NULL,
+  `questionnaire_questionnaire_id` int(11) default NULL,
   `title` varchar(40) default NULL,
   `description` text,
   PRIMARY KEY  (`id`),
-  KEY `questionnaire_id` (`survey_questionnaire_id`)
+  KEY `questionnaire_id` (`questionnaire_questionnaire_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 
 
-# Dump of table survey_survey
+# Dump of table questionnaire_questionnaire
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `survey_survey`;
+DROP TABLE IF EXISTS `questionnaire_questionnaire`;
 
-CREATE TABLE `survey_survey` (
+CREATE TABLE `questionnaire_questionnaire` (
   `id` int(11) NOT NULL auto_increment,
-  `survey_question_id` int(11) NOT NULL,
+  `questionnaire_question_id` int(11) NOT NULL,
   `foreign_id` int(11) default NULL,
   `title` varchar(400) default NULL,
   `created` datetime default NULL,
