@@ -30,3 +30,6 @@
  | 	<?php echo $paginator->numbers();?>
 	<?php echo $paginator->next(__('next', true).' >>', array(), null, array('class'=>'disabled'));?>
 </div>
+<div class="actions">
+	<?php echo $html->link('Add a Questionnaire', array('controller' => 'questionnaireQuestionnaires', 'action' => 'add')); ?>
+</div>
