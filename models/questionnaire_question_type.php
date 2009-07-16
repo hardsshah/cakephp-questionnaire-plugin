@@ -10,7 +10,7 @@ class QuestionnaireQuestionType extends QuestionnaireAppModel{
 
 	var $hasMany = array(
 		'QuestionnaireQuestion' => array(
-			'className' => 'Questionnaire.QuestionnaireQuestion',
+			'className' => 'questionnaire.QuestionnaireQuestion',
 			'dependent' => true
 		)
 	);

@@ -15,11 +15,11 @@
 				$class = ' class="altrow"';
 			}
 		?>
-		<tr<?php echo $class;?>>
+		<?php echo "<tr" . $class . ">";?>
 			<td><?php echo $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['id']; ?></td>
 			<td><?php echo $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['title']; ?></td>
 			<td class="actions">
-				<?php echo $html->link(__('View', true), array('action'=>'view', $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['id'])); ?>
+				<?php echo $html->link(__('View', true), array('action' => 'view', $questionnaireQuestionnaire['QuestionnaireQuestionnaire']['id'])); ?>
 			</td>
 		</tr>
 		<?php endforeach; ?>

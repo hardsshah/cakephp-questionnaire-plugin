@@ -4,18 +4,18 @@ class QuestionnaireQuestion extends QuestionnaireAppModel{
 
 	var $hasMany = array(
 		'QuestionnaireAnswer' => array(
-			'className' => 'Questionnaire.QuestionnaireAnswer',
+			'className' => 'questionnaire.QuestionnaireAnswer',
 			'dependent' => true
 		)
 	);
 
 	var $belongsTo = array(
 		'QuestionnaireSection' => array(
-			'className' => 'Questionnaire.QuestionnaireSection',
+			'className' => 'questionnaire.QuestionnaireSection',
 			'foreignKey' => 'questionnaire_section_id'
 		),
-		'QuestionType' => array(
-			'className' => 'Questionnaire.QuestionnaireQuestionType',
+		'QuestionnaireQuestionType' => array(
+			'className' => 'questionnaire.QuestionnaireQuestionType',
 			'foreignKey' => 'questionnaire_type_id'
 		)
 	);

@@ -5,13 +5,14 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 
 	function index() {
 		$this->paginate = array('contain' => false, 'fields' => array('QuestionnaireQuestionnaire.id', 'QuestionnaireQuestionnaire.title'));
-		$this->set('questionnaireQuestionnaires', $this->paginate());
+		$questionnaireQuestionnaires = $this->paginate();
+		$this->set(compact('questionnaireQuestionnaires'));
 	}
 
 	function view($id = null) {
-		if($this->QuestionnaireQuestionnaire->exists()) {
-			$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->getQuestionnaire($id);
-			$questionnaireQuestionTypes = $this->QuestionnaireQuestions->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
+		$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->getQuestionnaire($id);
+		if(!empty($questionnaireQuestionnaire)) {
+			$questionnaireQuestionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 			$this->set(compact('questionnaireQuestionnaire', 'questionnaireQuestionTypes'));
 		} else {
 			$this->Session->setFlash(__('Invalid Questionnaire.', true), 'messages/error');
@@ -19,12 +20,13 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 		}
 	}
 	
+	/*
 	function fill($id = null) {
 		if(empty($this->data)){
 			if($this->QuestionnaireQuestionnaire->exists()) {
 				$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->getQuestionnaire($id);
-				$questionnaireQuestionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
-				$this->set(compact('questionnaireQuestionnaire', 'questionnaireQuestionTypes'));
+				$questionnaireQuestionnaireQuestionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
+				$this->set(compact('questionnaireQuestionnaire', 'questionnaireQuestionnaireQuestionTypes'));
 			} else {
 				$this->Session->setFlash(__('Invalid Questionnaire.', true), 'messages/error');
 				$this->redirect(array('action' => 'index'), 404, true);
@@ -43,7 +45,7 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 			$this->QuestionnaireQuestionnaire->create();
 			if ($this->QuestionnaireQuestionnaire->saveAll($this->data, array('validate' => 'first'))) {
 				$this->Session->setFlash(__('The Questionnaire has been saved', true), 'messages/success');
-				$this->redirect(array('action' => 'index'), 200, true);
+				$this->redirect(array('controller' => 'questionnaireQuestionnaires', 'action' => 'index'), 200, true);
 			} else {
 				$this->Session->setFlash(__('The Questionnaire could not be saved. Please, try again.', true), 'messages/error');
 			}
@@ -94,7 +96,7 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 				}
 			}
 		}
-		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
+		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 		$this->set(compact('questionnaire_question_types'));
 	}
 
@@ -115,7 +117,7 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 				$this->Session->setFlash(__("The Section and it's associated questions could not be saved. Please, try again.", true));
 			}
 		}
-		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
+		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 		$this->set(compact('questionnaire_question_types'));
 	}
 
@@ -132,7 +134,7 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 				}
 			}
 		}
-		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
+		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 		$this->set(compact('questionnaire_question_types'));
 	}
 
@@ -153,8 +155,9 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 				$this->Session->setFlash(__("The Section and it's associated questions could not be saved. Please, try again.", true));
 			}
 		}
-		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionTypes->find("list");
+		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find("list");
 		$this->set(compact('questionnaire_question_types'));
 	}
+	*/
 }
 ?>
