@@ -88,12 +88,12 @@ CREATE TABLE `questionnaire_sections` (
 
 
 
-# Dump of table questionnaire_questionnaire
+# Dump of table questionnaire_survey
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `questionnaire_questionnaire`;
+DROP TABLE IF EXISTS `questionnaire_survey`;
 
-CREATE TABLE `questionnaire_questionnaire` (
+CREATE TABLE `questionnaire_survey` (
   `id` int(11) NOT NULL auto_increment,
   `questionnaire_question_id` int(11) NOT NULL,
   `foreign_id` int(11) default NULL,

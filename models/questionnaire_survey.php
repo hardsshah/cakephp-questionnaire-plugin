@@ -1,6 +1,6 @@
 <?php
-class QuestionnaireQuestionnaire extends QuestionnaireAppModel{
-	var $name = 'QuestionnaireQuestionnaire';
+class QuestionnaireSurvey extends QuestionnaireAppModel{
+	var $name = 'QuestionnaireSurvey';
 
 	var $belongsTo = array(
 		'QuestionnaireQuestion' => array(
