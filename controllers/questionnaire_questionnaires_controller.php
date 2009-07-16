@@ -5,7 +5,7 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 
 	function index() {
 		$this->paginate = array('contain' => false, 'fields' => array('QuestionnaireQuestionnaire.id', 'QuestionnaireQuestionnaire.title'));
-		$this->set('roms', $this->paginate());
+		$this->set('questionnaireQuestionnaires', $this->paginate());
 	}
 
 	function view($id = null) {
