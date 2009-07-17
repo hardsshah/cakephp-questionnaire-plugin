@@ -2,9 +2,19 @@
 class QuestionnaireQuestion extends QuestionnaireAppModel{
 	var $name = 'QuestionnaireQuestion';
 
+	var $validate = array(
+		'title' => array('notempty'),
+		'required' => array('boolean'),
+		'help' => array('notempty')
+	);
+
 	var $hasMany = array(
 		'QuestionnaireAnswer' => array(
 			'className' => 'questionnaire.QuestionnaireAnswer',
+			'dependent' => true
+		),
+		'QuestionnaireSurvey' => array(
+			'className' => 'questionnaire.QuestionnaireSurvey',
 			'dependent' => true
 		)
 	);

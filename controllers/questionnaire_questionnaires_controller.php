@@ -19,20 +19,19 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 			$this->redirect(array('action' => 'index'), 404, true);
 		}
 	}
-	
-	/*
+
 	function fill($id = null) {
-		if(empty($this->data)){
-			if($this->QuestionnaireQuestionnaire->exists()) {
-				$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->getQuestionnaire($id);
-				$questionnaireQuestionnaireQuestionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
-				$this->set(compact('questionnaireQuestionnaire', 'questionnaireQuestionnaireQuestionTypes'));
+		if (empty($this->data)){
+			$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->getQuestionnaire($id);
+			if (!empty($questionnaireQuestionnaire)) {
+				$questionnaireQuestionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
+				$this->set(compact('questionnaireQuestionnaire', 'questionnaireQuestionTypes'));
 			} else {
 				$this->Session->setFlash(__('Invalid Questionnaire.', true), 'messages/error');
 				$this->redirect(array('action' => 'index'), 404, true);
 			}
 		} else {
-			if($this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionnaire->saveAll($this->data)){
+			if ($this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireSurvey->saveAll($this->data['QuestionnaireSurvey'], array('validate' => false))){
 				$this->Session->setFlash(__('You have successfully completed the questionnaire.', true), 'messages/success');
 				$this->redirect(array('action' => 'index'), 200, true);
 			} else {
@@ -54,11 +53,10 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 
 	function edit($id = null) {
 		if (empty($this->data)) {
-			if ($this->QuestionnaireQuestionnaire->exists() == false){
+			$this->data = $this->QuestionnaireQuestionnaire->read(null, $id);
+			if (empty($this->data)){
 				$this->Session->setFlash(__('Invalid Questionnaire', true), 'messages/error');
 				$this->redirect(array('action' => 'index'), 404, true);
-			} else {
-				$this->data = $this->QuestionnaireQuestionnaire->read(null, $id);
 			}
 		} else {
 			if ($this->QuestionnaireQuestionnaire->save($this->data)) {
@@ -83,10 +81,39 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 		}
 	}
 
-	function add_section($id = NULL) {
+	function view_section($sectionID = null) {
+		if (!$sectionID) {
+			$this->Session->setFlash(__('Invalid Questionnaire Section.', true), 'messages/error');
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->QuestionnaireQuestionnaire->QuestionnaireSection->id = $sectionID;
+		$questionnaireSection = $this->QuestionnaireQuestionnaire->QuestionnaireSection->find('first', array('contain' => ('QuestionnaireQuestion')));
+		if (isset($questionnaireSection['QuestionnaireSection']) and !empty($questionnaireSection['QuestionnaireSection'])) {
+			$questionTypes = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
+			$this->set(compact('questionnaireSection', 'questionTypes'));
+		} else {
+			$this->Session->setFlash(__('Invalid Questionnaire Section.', true), 'messages/error');
+			$this->redirect(array('action' => 'index'));
+		}
+	}
+
+	function add_section($id = null) {
 		if (!empty($this->data)) {
-			if($this->QuestionnaireQuestionnaire->exists()) {
-				$this->data['QuestionnaireSection']['questionnaire_questionnaire_id'] = $id;
+			$questionnaireQuestionnaire = $this->QuestionnaireQuestionnaire->find('first');
+			if (!empty($questionnaireQuestionnaire)) {
+				$this->data['QuestionnaireSection']['questionnaire_questionnaire_id'] = $this->data['QuestionnaireQuestionnaire']['id'];
+				$i = 0;
+				debug($this->data);
+				die;
+				foreach ($this->data['QuestionnaireQuestion'] as $question) {
+					if (!isset($question['title']) or empty($question['title'])) {
+						unset($this->data['QuestionnaireQuestion'][$i]);
+					}
+					$i++;
+				}
+				if (!isset($this->data['QuestionnaireQuestion']) or empty($this->data['QuestionnaireQuestion'])) {
+					unset($this->data['QuestionnaireQuestion']);
+				}
 				$this->QuestionnaireQuestionnaire->QuestionnaireSection->create();
 				if ($this->QuestionnaireQuestionnaire->QuestionnaireSection->saveAll($this->data, array('validate' => 'first'))) {
 					$this->Session->setFlash(__('The Section has been added', true), 'messages/success');
@@ -95,6 +122,9 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 					$this->Session->setFlash(__('The Section could not be added. Please, try again.', true), 'messages/error');
 				}
 			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->QuestionnaireQuestionnaire->read(null, $id);
 		}
 		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 		$this->set(compact('questionnaire_question_types'));
@@ -119,6 +149,21 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 		}
 		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find('list');
 		$this->set(compact('questionnaire_question_types'));
+	}
+
+	function view_question($questionID = null) {
+		if (!is_integer($questionID)) {
+			$this->Session->setFlash(__('Invalid Questionnaire questionnaireQuestion.', true), 'messages/error');
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->id = $questionID;
+		$questionnaireQuestion = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->find('first');
+		if (isset($questionnaireQuestion['QuestionnaireQuestion']) and !empty($questionnaireQuestion['QuestionnaireQuestion'])) {
+			$this->set(compact('questionnaireQuestion'));
+		} else {
+			$this->Session->setFlash(__('Invalid Questionnaire Question.', true), 'messages/error');
+			$this->redirect(array('action' => 'index'));
+		}
 	}
 
 	function add_question($sectionID = NULL) {
@@ -158,6 +203,5 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 		$questionnaire_question_types = $this->QuestionnaireQuestionnaire->QuestionnaireSection->QuestionnaireQuestion->QuestionnaireQuestionType->find("list");
 		$this->set(compact('questionnaire_question_types'));
 	}
-	*/
 }
 ?>

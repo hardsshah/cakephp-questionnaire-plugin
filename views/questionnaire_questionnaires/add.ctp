@@ -1,6 +1,5 @@
 <div class="span-22">
-	<?php echo $form->create('QuestionnaireQuestionnaires', array('action' => 'add')); ?>
-	
+	<?php echo $form->create('QuestionnaireQuestionnaires', array('plugin' => 'questionnaire', 'controller' => 'questionnaire_questionnaires', 'action' => 'add')); ?>
 		<h2>Questionnaire</h2>
 		<fieldset>
 			<legend>Create A Questionnaire</legend>

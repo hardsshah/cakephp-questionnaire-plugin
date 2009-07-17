@@ -1,5 +1,5 @@
 <div class="section add">
-	<?php echo $form->create('Question', array('action' => 'edit_question')); ?>
+	<?php echo $form->create('QuestionnaireQuestionnaires', array('action' => 'edit_question')); ?>
 		<h2>Question</h2>
 		<fieldset>
 			<legend>Edit this Question</legend>
@@ -7,7 +7,6 @@
 			<?php echo $form->input('QuestionnaireQuestion.title', array('label' => 'Question Title', 'type' => 'text')); ?>
 			<?php echo $form->input('QuestionnaireQuestion.questionnaire_question_type_id', array('label' => 'Type of question')); ?>
 			<?php echo $form->input('QuestionnaireQuestion.required', array('label' => 'Is This Question Required?', 'type' => 'checkbox')); ?>
-			<?php echo $form->input('QuestionnaireQuestion.number_of_characters', array('label' => 'How Many Characters Are Allowed For This Field?', 'type' => 'text')); ?>
 			<?php echo $form->input('QuestionnaireQuestion.help', array('label' => 'Description For Help Box', 'type' => 'textarea')); ?>
 		</fieldset>
 
