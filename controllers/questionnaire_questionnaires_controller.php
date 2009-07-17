@@ -103,8 +103,6 @@ class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
 			if (!empty($questionnaireQuestionnaire)) {
 				$this->data['QuestionnaireSection']['questionnaire_questionnaire_id'] = $this->data['QuestionnaireQuestionnaire']['id'];
 				$i = 0;
-				debug($this->data);
-				die;
 				foreach ($this->data['QuestionnaireQuestion'] as $question) {
 					if (!isset($question['title']) or empty($question['title'])) {
 						unset($this->data['QuestionnaireQuestion'][$i]);
