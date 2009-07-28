@@ -1,6 +1,6 @@
 <?php
-class QuestionnaireQuestionnairesController extends QuestionnaireAppController{
-	var $name = 'QuestionnaireQuestionnaires';
+class QuestionnaireController extends QuestionnaireAppController{
+	var $name = 'Questionnaire';
 	var $uses =  array('Questionnaire.QuestionnaireQuestionnaire');
 
 	function index() {
